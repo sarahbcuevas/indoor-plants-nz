@@ -45,9 +45,9 @@ app.use('/images', express.static(path.join(__dirname, 'public/images')));
 
 // CORS config
 var corsOptions = {
-  // origin: 'http://localhost:4200',
+  origin: 'http://localhost:3000',
   // origin: 'http://1b4e6389.ngrok.io',
-  origin: 'http://192.168.1.26:4200',
+  // origin: 'http://192.168.1.26:4200',
   // origin: 'http://192.168.0.88:4200',
   optionsSuccessStatus: 200,
   credentials: true,
