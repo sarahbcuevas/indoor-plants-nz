@@ -23,7 +23,7 @@ categoryRouter.route('/')
     .post(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function(req, res, next) {
         Categories.create(req.body, function(err, category) {
             if (err) {
-                console.log('error: ', error);
+                console.log('error: ', err);
             }
             if (err) return next(err);
 
