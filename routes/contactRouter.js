@@ -15,7 +15,7 @@ contactRouter.route('/')
         });
     })
 
-    .post(function(req, res, next) {
+    .post(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function(req, res, next) {
         Contacts.create(req.body, function(err, contact) {
             if (err) return next(err);
 
@@ -25,7 +25,7 @@ contactRouter.route('/')
         })
     })
 
-    .delete(function(req, res, next) {
+    .delete(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function(req, res, next) {
         Contacts.remove({}, function(err, resp) {
             if (err) return next(err);
             res.json(resp);
@@ -41,7 +41,7 @@ contactRouter.route('/:contactId')
         });
     })
 
-    .put(function(req, res, next) {
+    .put(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function(req, res, next) {
         Contacts.findByIdAndUpdate(req.params.contactId, {
             $set: req.body
         }, {
@@ -52,7 +52,7 @@ contactRouter.route('/:contactId')
         });
     })
 
-    .delete(function(req, res, next) {
+    .delete(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function(req, res, next) {
         Contacts.findByIdAndRemove(req.params.contactId, function(err, resp) {
             if (err) return next(err);
             res.json(resp);

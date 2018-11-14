@@ -20,7 +20,7 @@ productRouter.route('/')
         });
     })
 
-    .post(function(req, res, next) {
+    .post(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function(req, res, next) {
         Products.create(req.body, function(err, product) {
             if (err) return next(err);
 
@@ -30,7 +30,7 @@ productRouter.route('/')
         });
     })
 
-    .delete(function(req, res, next) {
+    .delete(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function(req, res, next) {
         Products.remove({}, function(err, resp) {
             if (err) return next(err);
             res.json(resp);
@@ -48,7 +48,7 @@ productRouter.route('/:productId')
         });
     })
 
-    .put(function(req, res, next) {
+    .put(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function(req, res, next) {
         Products.findByIdAndUpdate(req.params.productId, {
             $set: req.body
         }, {
@@ -59,7 +59,7 @@ productRouter.route('/:productId')
         });
     })
 
-    .delete(function(req, res, next) {
+    .delete(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function(req, res, next) {
         Products.findByIdAndRemove(req.params.productId, function(err, resp) {
             if (err) return next(err);
             res.json(resp);

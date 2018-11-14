@@ -20,7 +20,7 @@ categoryRouter.route('/')
         });
     })
 
-    .post(function(req, res, next) {
+    .post(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function(req, res, next) {
         Categories.create(req.body, function(err, category) {
             if (err) return next(err);
 
@@ -30,7 +30,7 @@ categoryRouter.route('/')
         });
     })
 
-    .delete(function(req, res, next) {
+    .delete(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function(req, res, next) {
         Categories.remove({}, function(err, resp) {
             if (err) return next(err);
             res.json(resp);
@@ -48,7 +48,7 @@ categoryRouter.route('/:categoryId')
         });
     })
 
-    .put(function(req, res, next) {
+    .put(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function(req, res, next) {
         Categories.findByIdAndUpdate(req.params.categoryId, {
             $set: req.body
         }, {
@@ -59,7 +59,7 @@ categoryRouter.route('/:categoryId')
         });
     })
 
-    .delete(function(req, res, next) {
+    .delete(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function(req, res, next) {
         Categories.findByIdAndRemove(req.params.categoryId, function(err, resp) {
             if (err) return next(err);
             res.json(resp);

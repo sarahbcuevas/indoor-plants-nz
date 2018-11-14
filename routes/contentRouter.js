@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var Contents = require('../models/content');
+var Verify = require('./verify');
 
 var contentRouter = express.Router();
 
@@ -15,7 +16,7 @@ contentRouter.route('/')
         });
     })
 
-    .post(function(req, res, next) {
+    .post(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function(req, res, next) {
         Contents.create(req.body, function(err, content) {
             if (err) return next(err);
 
@@ -25,7 +26,7 @@ contentRouter.route('/')
         });
     })
 
-    .delete(function(req, res, next) {
+    .delete(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function(req, res, next) {
         Contents.remove({}, function(err, resp) {
             if (err) return next(err);
             res.json(resp);
@@ -41,7 +42,7 @@ contentRouter.route('/:contentId')
         });
     })
 
-    .put(function(req, res, next) {
+    .put(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function(req, res, next) {
         Contents.findByIdAndUpdate(req.params.contentId, {
             $set: req.body
         }, {
@@ -52,7 +53,7 @@ contentRouter.route('/:contentId')
         });
     })
 
-    .delete(function(req, res, next) {
+    .delete(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function(req, res, next) {
         Contents.findByIdAndRemove(req.params.contentId, function(err, resp) {
             if (err) return next(err);
             res.json(resp);

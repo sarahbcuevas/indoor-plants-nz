@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var SocialMedia = require('../models/social_media');
+var Verify = require('./verify');
 
 var socialMediaRouter = express.Router();
 
@@ -15,7 +16,7 @@ socialMediaRouter.route('/')
         })
     })
 
-    .post(function(req, res, next) {
+    .post(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function(req, res, next) {
         SocialMedia.create(req.body, function(err, socialMedia) {
             if (err) return next(err);
 
@@ -25,7 +26,7 @@ socialMediaRouter.route('/')
         })
     })
 
-    .delete(function(req, res, next) {
+    .delete(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function(req, res, next) {
         SocialMedia.remove({}, function(err, resp) {
             if (err) return next(err);
             res.json(resp);
@@ -41,7 +42,7 @@ socialMediaRouter.route('/:socialMediaId')
         });
     })
 
-    .put(function(req, res, next) {
+    .put(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function(req, res, next) {
         SocialMedia.findByIdAndUpdate(req.params.socialMediaId, {
             $set: req.body
         }, {
@@ -52,7 +53,7 @@ socialMediaRouter.route('/:socialMediaId')
         });
     })
 
-    .delete(function(req, res, next) {
+    .delete(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function(req, res, next) {
         SocialMedia.findByIdAndRemove(req.params.socialMediaId, function(err, resp) {
             if (err) return next(err);
             res.json(resp);
