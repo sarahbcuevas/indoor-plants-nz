@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var Contacts = require('../models/contact');
+var Verify = require('./verify');
 
 var contactRouter = express.Router();
 
