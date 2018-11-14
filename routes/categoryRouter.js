@@ -22,6 +22,9 @@ categoryRouter.route('/')
 
     .post(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function(req, res, next) {
         Categories.create(req.body, function(err, category) {
+            if (err) {
+                console.log('error: ', error);
+            }
             if (err) return next(err);
 
             var id = category._id;
