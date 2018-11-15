@@ -10,6 +10,10 @@ var socialMediaSchema = new Schema({
         type: String,
         required: false
     },
+    trademe: {
+        type: String,
+        required: false
+    },
     twitter: {
         type: String,
         required: false
