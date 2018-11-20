@@ -40,13 +40,27 @@ app.use(bodyParser.urlencoded( { extended: false }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+// Add a handler to inspect the req.secure flag (see
+// http://expressjs.com/api#req.secure). This allows us
+// to know whether the request was via http or https.
+app.use(function(req, res, next) {
+  if (req.secure) {
+    // request was via https, so do no special handling
+    next();
+  } else {
+    // request was via http, so redirect to https
+    res.redirect('https://' + req.headers.host + req.url);
+  }
+});
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/images', express.static(path.join(__dirname, 'public/images')));
 
 // CORS config
 var corsOptions = {
   // origin: 'http://localhost:4200',
-  origin: ['https://indoor-plants-nz-angular.herokuapp.com', 'http://localhost:3200'],
+  origin: 'https://indoor-plants-nz-angular.herokuapp.com',
   // origin: 'http://1b4e6389.ngrok.io',
   // origin: 'http://192.168.1.26:4200',
   // origin: 'http://192.168.0.88:4200',
