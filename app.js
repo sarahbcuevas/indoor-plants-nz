@@ -59,11 +59,7 @@ app.use('/images', express.static(path.join(__dirname, 'public/images')));
 
 // CORS config
 var corsOptions = {
-  // origin: 'http://localhost:4200',
-  origin: 'https://indoor-plants-nz-angular.herokuapp.com',
-  // origin: 'http://1b4e6389.ngrok.io',
-  // origin: 'http://192.168.1.26:4200',
-  // origin: 'http://192.168.0.88:4200',
+  origin: 'https://www.indoorplantsnz.com/',
   optionsSuccessStatus: 200,
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
