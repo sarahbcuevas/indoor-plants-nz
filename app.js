@@ -59,7 +59,7 @@ app.use('/images', express.static(path.join(__dirname, 'public/images')));
 
 // CORS config
 var corsOptions = {
-  origin: 'https://www.indoorplantsnz.com/',
+  origin: 'https://www.indoorplantsnz.com',
   optionsSuccessStatus: 200,
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
