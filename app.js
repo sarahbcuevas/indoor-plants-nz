@@ -59,11 +59,11 @@ app.use('/images', express.static(path.join(__dirname, 'public/images')));
 
 // CORS config
 var corsOptions = {
-  origin: ['https://www.indoorplantsnz.com', 'http://www.indoorplantsnz.com'],
-  optionsSuccessStatus: 200,
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'x-access-token', 'Authorization', 'Access-Control-Allow-Origin']
+  'origin': ['https://www.indoorplantsnz.com', 'http://www.indoorplantsnz.com'],
+  'optionsSuccessStatus': 200,
+  'credentials': true,
+  'methods': ['GET', 'POST', 'PUT', 'DELETE'],
+  'allowedHeaders': ['Content-Type', 'x-access-token', 'Authorization']
 };
 app.use(cors(corsOptions));
 
