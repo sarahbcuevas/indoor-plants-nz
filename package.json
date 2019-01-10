@@ -1,6 +1,6 @@
 {
   "name": "my-app",
-  "version": "4.0.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
@@ -12,8 +12,7 @@
     "express": "~4.16.0",
     "http-errors": "~1.6.2",
     "jsonwebtoken": "^8.3.0",
-    "mongoose": "^5.2.13",
-    "mongoose-currency": "^0.2.0",
+    "mongoose": "^5.4.3",
     "morgan": "^1.9.1",
     "multer": "^1.4.1",
     "nodemailer": "^4.6.8",

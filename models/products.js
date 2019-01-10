@@ -1,8 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-require('mongoose-currency').loadType(mongoose);
-
 var Currency = mongoose.Types.Currency;
 
 var productSchema = new Schema({
@@ -20,14 +18,16 @@ var productSchema = new Schema({
         required: false
     },
     price: {
-        type: Currency,
+        type: Number,
         required: true,
-        get: getPrice
+        get: getPrice,
+        set: setPrice
     },
     deliveryFee: {
-        type: Currency,
+        type: Number,
         required: false,
-        get: getPrice
+        get: getPrice,
+        set: setPrice
     },
     forPickupOnly: {
         type: Boolean
@@ -48,6 +48,10 @@ var productSchema = new Schema({
 
 function getPrice(num) {
     return (num/100).toFixed(2);
+}
+
+function setPrice(num) {
+    return num*100;
 }
 
 var Products = mongoose.model('Product', productSchema);
