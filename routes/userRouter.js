@@ -5,7 +5,7 @@ var User = require('../models/user');
 var Verify = require('./verify');
 
 /* GET users listing. */
-router.get('/', Verify.verifyOrdinaryUser, Verify.verifyAdmin, function(req, res, next) {
+router.get('/', Verify.verifyOrdinaryUser, Verify.verifyAdmin, Verify.verifySuperUser, function(req, res, next) {
   User.find(req.query)
     .exec(function(err, user) {
       if (err) return next (err);
@@ -22,7 +22,7 @@ router.get('/profile', Verify.verifyOrdinaryUser, Verify.verifyAdmin, function(r
 });
 
 /* GET user by id */
-router.get('/:userId', Verify.verifyOrdinaryUser, Verify.verifyAdmin, function(req, res, next) {
+router.get('/:userId', Verify.verifyOrdinaryUser, Verify.verifyAdmin, Verify.verifySuperUser, function(req, res, next) {
   User.findById(req.params.userId, function(err, profile) {
     if (err) return next(err);
     res.json(profile);
@@ -30,7 +30,7 @@ router.get('/:userId', Verify.verifyOrdinaryUser, Verify.verifyAdmin, function(r
 });
 
 /* UPDATE user */
-router.put('/:userId', Verify.verifyOrdinaryUser, Verify.verifyAdmin, function(req, res, next) {
+router.put('/:userId', Verify.verifyOrdinaryUser, Verify.verifyAdmin, Verify.verifySuperUser, function(req, res, next) {
   User.findByIdAndUpdate(req.params.userId, {
     $set: req.body
   }, {
@@ -41,7 +41,7 @@ router.put('/:userId', Verify.verifyOrdinaryUser, Verify.verifyAdmin, function(r
   })
 });
 
-router.post('/register', function(req, res) {
+router.post('/register', Verify.verifyOrdinaryUser, Verify.verifyAdmin, Verify.verifySuperUser, function(req, res) {
   User.register(new User({ username: req.body.username }), req.body.password, function(err, user) {
     if (err) {
       return res.status(500).json({err: err});
@@ -115,7 +115,7 @@ router.get('/logout', function(req, res) {
   });
 });
 
-router.delete('/:userId', Verify.verifyOrdinaryUser, Verify.verifyAdmin, function(req, res) {
+router.delete('/:userId', Verify.verifyOrdinaryUser, Verify.verifyAdmin, Verify.verifySuperUser, function(req, res) {
   User.findByIdAndRemove(req.params.userId, function(err, resp) {
     if (err) return next(err);
     res.json(resp);

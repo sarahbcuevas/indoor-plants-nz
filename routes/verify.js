@@ -45,7 +45,25 @@ exports.verifyAdmin = function(req, res, next) {
     } else {
         var id = req.decoded._id;
 
-        if (req.decoded.role === 'admin') {
+        if (req.decoded.role === 'admin' || req.decoded.role === 'superuser') {
+            next();
+        } else {
+            var err = new Error('You are not authorized to perform the action!');
+            err.status = 403;
+            return next(err);
+        }
+    }
+};
+
+exports.verifySuperUser = function(req, res, next) {
+    if (!req.decoded) {
+        var err = new Error('You are not authorized to perform the action!');
+        err.status = 403;
+        return next(err);
+    } else {
+        var id = req.decoded._id;
+
+        if (req.decoded.role === 'superuser') {
             next();
         } else {
             var err = new Error('You are not authorized to perform the action!');
