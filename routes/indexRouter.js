@@ -1,48 +1,38 @@
 var express = require('express');
 var router = express.Router();
+var aws = require('aws-sdk');
 
-const path = require('path');
-const multer = require('multer');
-const fs = require('fs');
-
-const DIR = './public/images';
-
-let storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-      cb(null, DIR);
-    },
-    filename: (req, file, cb) => {
-      cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-    }
-  });
-  
-let upload = multer({storage: storage});
+const S3_BUCKET = process.env.S3_BUCKET;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.post('/uploads', upload.single('photo'), function(req, res) {
-  if (!req.file) {
-    return res.send({
-      success: false
-    });
-  } else {
-    return res.send({
-      success: true,
-      path: `/images/${req.file.filename}`
-    });
-  }
-});
+router.get('/sign-s3', function(req, res, next) {
+  const s3 = new aws.S3();
+  const fileName = req.query['file-name'];
+  const fileType = req.query['file-type'];
+  const s3Params = {
+    'Bucket': S3_BUCKET,
+    'Key': fileName,
+    'Expires': 60,
+    'ContentType': fileType,
+    'ACL': 'public-read'
+  };
 
-router.delete('/uploads/:pathName', function(req, res, next) {
-  console.log(`Deleting image: ${req.params.pathName}`);
-  const path = './public/images/' + req.params.pathName;
-  console.log(`path: ${path}`);
-  fs.unlink(path, (err) => {
-    if (err) return next(err);
-    console.log(`${path} was deleted`);
+  s3.getSignedUrl('putObject', s3Params, (err, data) => {
+    if (err) {
+      console.log(err);
+      return res.end();
+    }
+    const returnData = {
+      signedRequest: data,
+      url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`
+    };
+
+    res.write(JSON.stringify(returnData));
+    res.end();
   });
 });
 

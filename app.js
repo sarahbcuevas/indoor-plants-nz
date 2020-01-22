@@ -9,6 +9,7 @@ var passport = require('passport');
 var authenticate = require('./authenticate');
 var cors = require('cors');
 var config = require('./config');
+var aws = require('aws-sdk');
 
 var indexRouter = require('./routes/indexRouter');
 var productRouter = require('./routes/productRouter');
@@ -18,6 +19,8 @@ var contentRouter = require('./routes/contentRouter');
 var contactRouter = require('./routes/contactRouter');
 var socialMediaRouter = require('./routes/socialMediaRouter');
 var sendMailRouter = require('./routes/sendMailRouter');
+
+aws.config.region = 'us-west-1';
 
 mongoose.Promise = global.Promise;
 mongoose.set('useCreateIndex', true);
@@ -48,7 +51,12 @@ app.use('/images', express.static(path.join(__dirname, 'public/images')));
 
 // CORS config
 var corsOptions = {
-  'origin': ['https://www.indoorplantsnz.com', 'http://www.indoorplantsnz.com'],
+  'origin': [
+    'https://www.indoorplantsnz.com',
+    'http://www.indoorplantsnz.com',
+    'http://localhost:4200',
+    'https://s3.us-east-2.amazonaws.com/indoorplantsnz-assets'
+  ],
   'optionsSuccessStatus': 200,
   'credentials': true,
   'methods': ['GET', 'POST', 'PUT', 'DELETE'],
