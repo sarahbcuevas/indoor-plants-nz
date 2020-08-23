@@ -25,7 +25,11 @@ aws.config.region = 'us-west-1';
 mongoose.Promise = global.Promise;
 mongoose.set('useCreateIndex', true);
 mongoose.connect(config.mongoUrl, {
-  useNewUrlParser: true
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+}).then(() => console.log('DB Connected!'))
+.catch(err => {
+  console.log('DB Connection Error: ', err.message);
 });
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
