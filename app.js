@@ -19,6 +19,7 @@ var contentRouter = require('./routes/contentRouter');
 var contactRouter = require('./routes/contactRouter');
 var socialMediaRouter = require('./routes/socialMediaRouter');
 var sendMailRouter = require('./routes/sendMailRouter');
+var refreshRouter = require('./routes/refreshRouter');
 
 aws.config.region = 'us-west-1';
 
@@ -79,6 +80,8 @@ app.use('/content', contentRouter);
 app.use('/contact', contactRouter);
 app.use('/socialmedia', socialMediaRouter);
 app.use('/send', sendMailRouter);
+/** WARNING: Disable this on Production Environment */
+app.use('/refresh', refreshRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
