@@ -21,7 +21,7 @@ var socialMediaRouter = require('./routes/socialMediaRouter');
 var sendMailRouter = require('./routes/sendMailRouter');
 var refreshRouter = require('./routes/refreshRouter');
 
-aws.config.region = 'us-west-1';
+aws.config.loadFromPath('./aws_config.json');
 
 mongoose.Promise = global.Promise;
 mongoose.set('useCreateIndex', true);
@@ -60,7 +60,7 @@ var corsOptions = {
     'https://www.indoorplantsnz.com',
     'http://www.indoorplantsnz.com',
     'http://localhost:4200',
-    'https://s3.us-east-2.amazonaws.com/indoorplantsnz-assets'
+    'https://indoor-plants-nz-assets.s3.ap-southeast-2.amazonaws.com/'
   ],
   'optionsSuccessStatus': 200,
   'credentials': true,
