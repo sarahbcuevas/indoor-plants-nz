@@ -1,8 +1,10 @@
 var express = require('express');
 var router = express.Router();
 var aws = require('aws-sdk');
+var config = require('../config');
 
-const S3_BUCKET = process.env.S3_BUCKET;
+// const S3_BUCKET = process.env.S3_BUCKET;
+const S3_BUCKET = config.S3_BUCKET;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -10,9 +12,13 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/sign-s3', function(req, res, next) {
-  const s3 = new aws.S3();
+  const s3 = new aws.S3({
+    apiVersion: '2006-03-01',
+    signatureVersion: 'v4'
+  });
   const fileName = req.query['file-name'];
   const fileType = req.query['file-type'];
+
   const s3Params = {
     'Bucket': S3_BUCKET,
     'Key': fileName,
@@ -20,7 +26,8 @@ router.get('/sign-s3', function(req, res, next) {
     'ContentType': fileType,
     'ACL': 'public-read'
   };
-
+  console.log('AWS Config: ', aws.config);
+  console.log('s3Params: ', s3Params);
   s3.getSignedUrl('putObject', s3Params, (err, data) => {
     if (err) {
       console.log(err);
