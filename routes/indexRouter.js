@@ -16,7 +16,7 @@ router.get('/sign-s3', function(req, res, next) {
     apiVersion: '2006-03-01',
     signatureVersion: 'v4'
   });
-  const fileName = req.query['file-name'];
+  const fileName = req.query['file-name'].replace(/ /g, "_");
   const fileType = req.query['file-type'];
 
   const s3Params = {
@@ -26,8 +26,7 @@ router.get('/sign-s3', function(req, res, next) {
     'ContentType': fileType,
     'ACL': 'public-read'
   };
-  console.log('AWS Config: ', aws.config);
-  console.log('s3Params: ', s3Params);
+
   s3.getSignedUrl('putObject', s3Params, (err, data) => {
     if (err) {
       console.log(err);
