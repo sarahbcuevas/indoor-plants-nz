@@ -41,6 +41,21 @@ router.put('/:userId', Verify.verifyOrdinaryUser, Verify.verifyAdmin, Verify.ver
   })
 });
 
+/* UPDATE user password */
+router.post('/changePassword', Verify.verifyOrdinaryUser, Verify.verifyAdmin, function(req, res, next) {
+  var oldPassword = req.body.oldPassword;
+  var newPassword = req.body.newPassword;
+  User.findById(req.decoded._id, function(err, user) {
+    if (err) return next(err);
+    user.changePassword(oldPassword, newPassword, function(err, user) {
+      if (err) {
+        return res.status(500).json({error: err});
+      }
+      res.json(user);
+    });
+  });
+});
+
 router.post('/register', Verify.verifyOrdinaryUser, Verify.verifyAdmin, Verify.verifySuperUser, function(req, res) {
   User.register(new User({ username: req.body.username }), req.body.password, function(err, user) {
     if (err) {
