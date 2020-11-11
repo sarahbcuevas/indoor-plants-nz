@@ -6,8 +6,7 @@ var Currency = mongoose.Types.Currency;
 var productSchema = new Schema({
     name: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     },
     category: [{
         type: mongoose.Schema.Types.ObjectId,
