@@ -16,6 +16,10 @@ var productSchema = new Schema({
         type: String,
         required: false
     },
+    stock: {
+        type: Number,
+        required: true
+    },
     price: {
         type: Number,
         required: true,
