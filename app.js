@@ -20,11 +20,14 @@ var contactRouter = require('./routes/contactRouter');
 var socialMediaRouter = require('./routes/socialMediaRouter');
 var sendMailRouter = require('./routes/sendMailRouter');
 var refreshRouter = require('./routes/refreshRouter');
+var customerRouter = require('./routes/customerRouter');
+var orderRouter = require('./routes/orderRouter');
 
 aws.config.loadFromPath('./aws_config.json');
 
 mongoose.Promise = global.Promise;
 mongoose.set('useCreateIndex', true);
+mongoose.set('useFindAndModify', false);
 mongoose.connect(config.mongoUrl, {
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -80,6 +83,8 @@ app.use('/content', contentRouter);
 app.use('/contact', contactRouter);
 app.use('/socialmedia', socialMediaRouter);
 app.use('/send', sendMailRouter);
+app.use('/customer', customerRouter);
+app.use('/order', orderRouter);
 /** WARNING: Disable this on Production Environment */
 app.use('/refresh', refreshRouter);
 
