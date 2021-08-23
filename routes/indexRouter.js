@@ -42,4 +42,24 @@ router.get('/sign-s3', function(req, res, next) {
   });
 });
 
+router.delete('/sign-s3', function(req, res, next) {
+  const s3 = new aws.S3({
+    apiVersion: '2006-03-01',
+    signatureVersion: 'v4'
+  });
+
+  const fileName = req.query['file-name'];
+
+  const s3Params = {
+    'Bucket': S3_BUCKET,
+    'Key': fileName
+  };
+
+  s3.deleteObject(s3Params, function(err, data) {
+    if (err) return next(err);
+    res.json(data);
+  });
+
+});
+
 module.exports = router;

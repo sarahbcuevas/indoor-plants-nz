@@ -22,6 +22,8 @@ var sendMailRouter = require('./routes/sendMailRouter');
 var refreshRouter = require('./routes/refreshRouter');
 var customerRouter = require('./routes/customerRouter');
 var orderRouter = require('./routes/orderRouter');
+var settingsRouter = require('./routes/settingsRouter');
+var orderTransactionRouter = require('./routes/orderTransactionRouter');
 
 aws.config.loadFromPath('./aws_config.json');
 
@@ -85,6 +87,8 @@ app.use('/socialmedia', socialMediaRouter);
 app.use('/send', sendMailRouter);
 app.use('/customer', customerRouter);
 app.use('/order', orderRouter);
+app.use('/orderTransaction', orderTransactionRouter);
+app.use('/settings', settingsRouter);
 /** WARNING: Disable this on Production Environment */
 app.use('/refresh', refreshRouter);
 

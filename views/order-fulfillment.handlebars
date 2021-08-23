@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>The Foliage Fix</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Work+Sans:200,300,400,500,600,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Pacifico|Montserrat|Roboto" rel="stylesheet">
+  <style type="text/css">
+
+    .bg-white {
+      background: white;
+    }
+
+    .banner {
+      width: 100%;
+      height: auto;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      align-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .banner-logo {
+      width: 150px;
+      height: auto;
+      margin: 0 auto;
+    }
+
+    .center {
+      text-align: center;
+      align-content: center;
+      align-items: center;
+    }
+
+    .border {
+      border: 1px solid darkgray;
+    }
+
+    .border-top {
+        border-top: 1px solid darkgray !important;
+    }
+
+    .intro {
+      font-size: 1.25rem;
+      font-weight: 400;
+      letter-spacing: 0.05rem;
+      padding-top: 20px;
+      padding-bottom: 10px;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 300;
+      color: black !important;
+    }
+
+    .order-summary {
+      margin: 0 auto;
+      padding: 10px;
+      font-size: 0.8rem;
+    }
+
+    .img-thumbnail {
+      padding: .25rem;
+      background-color: #fff;
+      border: 1px solid #dee2e6;
+      border-radius: .25rem;
+      max-width: 90%;
+      height: auto;
+    }
+
+    .col-2 {
+      display: inline-block;
+      max-width: 15%;
+      flex: 0 0 15%;
+      position: relative;
+      width: 100%;
+    }
+
+    .col {
+      display: inline-block;
+      flex: 0 0 50%;
+      max-width: 50%;
+      position: relative;
+      width: 100%;
+      padding-left: 0;
+      margin: auto;
+    }
+
+    .col-auto {
+      display: inline-block;
+      flex: 0 0 auto;
+      position: relative;
+      width: auto;
+      text-align: end;
+      margin: auto 0;
+    }
+
+    .order-summary-title {
+      font-size: 1rem;
+      font-weight: 200;
+      width: auto;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .replyButton {
+      background-color: #6c9f7f;
+      width: fit-content;
+      color: white !important;
+      cursor: pointer;
+      padding: 1rem 1rem;
+      border-color: #6c9f7f;
+      font-weight: 400;
+      text-align: center;
+      font-size: 0.9rem;
+      border-radius: .25rem;
+      text-decoration: none;
+      margin-right: 10px;
+    }
+
+    @media (max-width: 375px) {
+      body {
+        font-size: 0.7rem;
+      }
+
+      .intro {
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 767.98px) {
+      .column {
+        display: inline-block;
+        flex: 0 0 100%;
+        max-width: 100%;
+        position: relative;
+        width: 100%;
+        margin: 0;
+        vertical-align: top;
+        padding: 10px;
+      }
+
+      .col {
+        padding: 0px !important;
+      }
+
+      .intro {
+        font-size: 1.15rem;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .column {
+        display: inline-block;
+        flex: 0 0 45%;
+        max-width: 45%;
+        position: relative;
+        width: 100%;
+        margin: 0;
+        vertical-align: top;
+        padding: 10px;
+      }
+
+      .col {
+        padding: 25px;
+        padding-left: 0;
+      }
+
+      .order-summary {
+        padding: 20px 30px;
+      }
+    }
+
+    .customer-info {
+      position: relative;
+      margin: 0 auto;
+      font-size: 0.8rem;
+      padding: 10px;
+    }
+
+  </style>
+</head>
+<body>
+  <div>
+    <div class="banner center">
+      <div class="banner-logo center">
+        <img class ="banner-logo" src="https://indoor-plants-nz-assets.s3.ap-southeast-2.amazonaws.com/logo_transparent_background.png"/>
+      </div>
+    </div>
+
+    <div class="center intro">
+      <span>Your order is on the way!</span>
+    </div>
+
+    <div style="margin: 0 auto; max-width: 600px; text-align:justify;" class="center">
+        <p style="font-size: 0.8rem; color: gray;">Hi {{ order.customer.firstname }}, please expect your parcel to arrive within 2-3 days. 
+            Thank you very much and we hope to see your foliage soon. Please do tag us on your social media post. </p>
+      </div>
+
+    <div style="max-width: 600px; margin: 20px auto;">
+      <div class="order-summary-title">
+        <span>Order #{{ order.code }}</span>
+      </div>
+      <div class="order-summary border">
+        {{#each orderItems}}
+          <div style="display: flex;">
+            {{#if this.product.images}}
+              <div class="col-2"><img class="img-thumbnail" src="{{this.product.images.[0].url}}"></div>
+            {{else}}
+              <div class="col-2"><img class="img-thumbnail" src="https://indoor-plants-nz-assets.s3.ap-southeast-2.amazonaws.com/default-plant.jpg"></div>
+            {{/if}}
+            <div class="col">
+              {{ this.product.name }} x {{ this.quantity }}
+              </div>
+            <div class="col-auto center">NZD {{amount this.product.price this.quantity}}</div>
+          </div>
+        {{/each}}
+
+        <hr>
+
+        <div>
+          <div style="padding:10px 0; text-align: start; float: left;">Subtotal</div>
+          <div style="padding:10px; padding-right: 0; text-align: end;">NZD {{subtotal orderItems}}</div>
+        </div>
+        <div>
+          <div style="padding:10px 0; text-align: start; float: left;">Shipping</div>
+          <div style="padding:10px; padding-right: 0; text-align: end;">NZD {{shippingFee}}</div>
+        </div>
+        {{#if order.discount.discount}}
+          <div>
+            <div style="padding:10px 0; text-align: start; float: left;">Discount</div>
+            <div style="padding:10px; padding-right: 0; text-align: end;">
+              {{#if discountPercent}}
+                ( {{order.discount.discount}}% )
+              {{else}}
+                ( NZD {{order.discount.discount}} )
+              {{/if}}  
+            </div>
+          </div>
+        {{/if}}
+
+        <hr>
+
+        <div>
+          <div style="padding:10px 0; text-align: start; float: left;"><strong>Total</strong></div>
+          <div style="padding:10px; padding-right: 0; text-align: end;"><h3 style="margin: 0;"><strong>NZD {{total}}</strong></h3></div>
+        </div>
+
+      </div>
+    </div>
+
+    <div style="margin: 20px auto; max-width: 600px;">
+        <div class="order-summary-title">
+          <span>Customer Information</span>
+        </div>
+
+        <div class="border customer-info" style="vertical-align: text-top;">
+          <div class="column">
+            <div>
+              <strong>Contact information</strong><br>
+              <span>
+                <a style="text-decoration: none; color: black;">{{order.customer.email}}</a>
+              </span>
+            </div>
+            <br>
+            <div>
+              <strong>Shipping address</strong><br>
+              <span style="text-decoration: none; color: black;">
+                {{order.customer.firstname}} {{order.customer.lastname}}<br>
+                {{order.customer.address}}<br>
+                {{order.customer.city}}, {{order.customer.region}}<br>
+                {{order.customer.country}} {{order.customer.postal}}<br>
+                {{order.customer.contact}}
+              </span>
+            </div>
+          </div>
+
+          <div class="column">
+            <div>
+              <strong>Payment method</strong><br>
+              <span>{{order.paymentMethod}} - NZD {{total}}</span>
+            </div>
+            <br>
+            <div>
+              <strong>Shipping method</strong><br>
+              <span>
+                {{#if forDelivery}}
+                  For Delivery
+                {{else}}
+                  For Pick up
+                {{/if}}
+              </span>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <div style="margin: 0 auto; padding: 20px; max-width: 700px; margin-top:20px;" class="center">
+        <a href="{{order.url}}" class="replyButton">View your order</a> or <a href="{{storeUrl}}" style="color:#007bff; text-decoration: none;">Visit our store</a>
+    </div>
+    {{#if order.trackingUrl}}
+        <div style="margin: 0 auto; max-width: 700px;" class="center">
+            <span style="color: darkgrey;">NZPost tracking url: </span><a href="{{order.trackingUrl}}" style="color:#darkgrey; text-decoration: none;">{{order.trackingUrl}}</a>
+        </div>
+    {{/if}}
+
+    <div style="margin: 0 auto; padding: 20px; max-width: 700px" class="center">
+        <hr style="max-width: 700px;">
+        <p style="margin-top: 25px; color: darkgrey;">If you have any questions, reply to this email or contact us at<br>
+        <a href="mailto:info@thefoliagefix.co.nz" style="color:#007bff; text-decoration: none;">info@thefoliagefix.co.nz</a></p>
+    </div>
+  </div>
+</body>
+
+</html>

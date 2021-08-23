@@ -23,10 +23,7 @@ productRouter.route('/')
     .post(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function(req, res, next) {
         Products.create(req.body, function(err, product) {
             if (err) return next(err);
-
-            var id = product._id;
-            res.writeHead(200, { 'Content-Type': 'text/plain' });
-            res.end('Added the product with id: ' + id);
+            res.json(product);
         });
     })
 

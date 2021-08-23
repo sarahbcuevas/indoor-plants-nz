@@ -3,6 +3,17 @@ var Schema = mongoose.Schema;
 
 var Currency = mongoose.Types.Currency;
 
+var photo = new Schema({
+    url: {
+        type: String,
+        required: true
+    },
+    isPrimary: {
+        type: Boolean,
+        default: false
+    }
+});
+
 var productSchema = new Schema({
     name: {
         type: String,
@@ -35,14 +46,8 @@ var productSchema = new Schema({
     forPickupOnly: {
         type: Boolean
     },
-    image: {
-        type: String,
-        required: false
-    },
+    images: [photo],
     isBestseller: {
-        type: Boolean
-    },
-    isSoldout: {
         type: Boolean
     }
 }, {

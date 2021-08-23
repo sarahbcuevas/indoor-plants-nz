@@ -4,7 +4,6 @@ var Schema = mongoose.Schema;
 var customerSchema = new Schema({
     email: {
         type: String,
-        required: true,
         unique: true
     },
     firstname: {
@@ -15,6 +14,9 @@ var customerSchema = new Schema({
         type: String
     },
     contact: {
+        type: String
+    },
+    company: {
         type: String
     },
     country: {
@@ -31,6 +33,9 @@ var customerSchema = new Schema({
     },
     postal: {
         type: String
+    },
+    subscribe: {
+        type: Boolean
     }
 }, {
     timestamps: true

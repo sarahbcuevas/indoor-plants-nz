@@ -46,8 +46,7 @@ router.post('/create', Verify.verifyOrdinaryUser, function(req, res, next) {
     if (err) return next(err);
 
     var id = customer._id;
-    res.writeHead(200, { 'Content-Type': 'text/plain' });
-    res.end('Added the customer with id: ' + id);
+    return res.json(customer);
   });
 });
 
