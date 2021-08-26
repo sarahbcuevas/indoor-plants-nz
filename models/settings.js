@@ -41,6 +41,10 @@ var settingSchema = new Schema({
     acceptAfterpay: {
         type: Boolean,
         default: false
+    },
+    acceptBankTransfer: {
+        type: Boolean,
+        default: false
     }
 }, {
     timestamps: true

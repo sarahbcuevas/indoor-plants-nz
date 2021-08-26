@@ -303,9 +303,9 @@
     <div style="margin: 0 auto; padding: 20px; max-width: 700px; margin-top:20px;" class="center">
         <a href="{{order.url}}" class="replyButton">View your order</a> or <a href="{{storeUrl}}" style="color:#007bff; text-decoration: none;">Visit our store</a>
     </div>
-    {{#if order.trackingUrl}}
+    {{#if order.trackingNumber}}
         <div style="margin: 0 auto; max-width: 700px;" class="center">
-            <span style="color: darkgrey;">NZPost tracking url: </span><a href="{{order.trackingUrl}}" style="color:#darkgrey; text-decoration: none;">{{order.trackingUrl}}</a>
+            <span style="color: darkgrey;">NZPost tracking number: </span><a href="https://www.nzpost.co.nz/tools/tracking/item/{{order.trackingNumber}}" style="color:#darkgrey; text-decoration: none;" target="_blank">{{order.trackingNumber}}</a>
         </div>
     {{/if}}
 

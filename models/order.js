@@ -80,7 +80,7 @@ var orderSchema = new Schema({
         type: Number,
         required: true
     },
-    trackingUrl: {
+    trackingNumber: {
         type: String
     }
 }, {

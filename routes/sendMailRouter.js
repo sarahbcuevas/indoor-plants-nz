@@ -84,6 +84,7 @@ sendMailRouter.route('/order')
         const subject = `Order #${req.body.code} confirmed`;
         const forDelivery = req.body.shipping.mode != 'pickup';
         const storeUrl = req.body.url.split('/order-confirmation')[0];
+        const isBankTransfer = req.body.paymentMethod == 'Bank_Transfer';
         let discountPercent = '';
         if (req.body.discount) {
             discountPercent = req.body.discount.mode == '%';
@@ -98,6 +99,7 @@ sendMailRouter.route('/order')
                 order: req.body,
                 orderItems: req.body.orderItems,
                 forDelivery: forDelivery,
+                isBankTransfer: isBankTransfer,
                 discountPercent: discountPercent,
                 shippingFee: (req.body.shipping.fee / 100).toFixed(2),
                 total: (req.body.total / 100).toFixed(2),
@@ -116,7 +118,7 @@ sendMailRouter.route('/order')
 sendMailRouter.route('/order/fulfill')
     .post(function(req, res, next) {
         const subject = `Order #${req.body.code} is on the way`;
-        const forDelivery = req.body.shipping.mode != 'pickup';
+        const forDelivery = req.body.shipping.mode != 'pickup';        
         const storeUrl = req.body.url.split('/order-confirmation')[0];
         let discountPercent = '';
         if (req.body.discount && req.body.discount.discount > 0) {
