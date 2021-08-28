@@ -10,6 +10,10 @@ var contentSchema = new Schema({
         type: String,
         required: true
     },
+    topBarContent: {
+        type: String,
+        required: false
+    },
     jumbotronImage: {
         type: String,
         required: false
