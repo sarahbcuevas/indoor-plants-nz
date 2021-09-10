@@ -10,7 +10,7 @@ const msalConfig = {
     auth: {
         clientId: config.CLIENT_ID,
         authority: config.AAD_ENDPOINT + config.TENANT_ID,
-        clientSecret: config.CLIENT_SECRET,
+        clientSecret: config.CLIENT_SECRET
     }
 };
 
