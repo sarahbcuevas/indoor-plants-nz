@@ -28,8 +28,7 @@ var productSchema = new Schema({
         required: false
     },
     stock: {
-        type: Number,
-        required: true
+        type: Number
     },
     price: {
         type: Number,
