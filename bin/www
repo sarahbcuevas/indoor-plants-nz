@@ -7,7 +7,6 @@
 var app = require('../app');
 var debug = require('debug')('my-app:server');
 var http = require('http');
-var sockjs = require('sockjs');
 
 /**
  * Get port from environment and store in Express.
@@ -15,18 +14,6 @@ var sockjs = require('sockjs');
 
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
-
-/**
- * Create SockJS server
- */
-
-const echo = sockjs.createServer({ sockjs_url: 'http://cdn.jsdelivr.net/sockjs/1.0.1/sockjs.min.js' });
-echo.on('connection', function(conn) {
-  conn.on('data', function(message) {
-    conn.write(message);
-  });
-  conn.on('close', function() {});
-});
 
 /**
  * Create HTTP server.
@@ -38,7 +25,6 @@ var server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
-echo.installHandlers(server, {prefix:'/echo'});
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);

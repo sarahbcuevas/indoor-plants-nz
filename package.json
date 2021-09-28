@@ -20,8 +20,7 @@
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^5.0.1",
-    "pug": "^3.0.2",
-    "sockjs": "^0.3.21"
+    "pug": "^3.0.2"
   },
   "devDependencies": {
     "aws-sdk": "^2.404.0"
