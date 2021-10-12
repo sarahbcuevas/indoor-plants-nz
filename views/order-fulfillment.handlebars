@@ -198,9 +198,24 @@
     </div>
 
     <div style="margin: 0 auto; max-width: 600px; text-align:justify;" class="center">
-        <p style="font-size: 0.8rem; color: gray;">Hi {{ order.customer.firstname }}, please expect your parcel to arrive within 2-3 days. 
-            Thank you very much and we hope to see your foliage soon. Please do tag us on your social media post. </p>
+      <div style="font-size: 0.8rem; color: gray;">
+        <em>
+        <p>
+          Hi {{ order.customer.firstname }}, please find the courier tracking number for your order.<br>
+          <span style="color: darkgrey;">NZPost tracking number: </span><a href="https://www.nzpost.co.nz/tools/tracking/item/{{order.trackingNumber}}" style="color:darkgrey; text-decoration:underline" target="_blank">{{order.trackingNumber}}</a><br>
+        </p>
+        <p>
+          If you encounter any issues please do not hesitate to contact us in the first instance.<br>
+          Thanks for your continued support and always a pleasure to be at your service.
+        </p>
+        <p>
+          Cheers,<br>
+          Carlos<br>
+          Foliage Fix NZ
+        </p>
+        </em>
       </div>
+    </div>
 
     <div style="max-width: 600px; margin: 20px auto;">
       <div class="order-summary-title">

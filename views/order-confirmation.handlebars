@@ -199,22 +199,40 @@
 
     <div style="margin: 0 auto; max-width: 600px; text-align:justify;" class="center">
       {{#if isBankTransfer}}
-        <p style="font-size: 0.8rem; color: gray;">
-          Hi {{ order.customer.firstname }}, we have received your order with id #{{ order.code }}. 
-          Kindly reply to this email with your proof of payment within the next 24 hours. 
-          Once we receive your payment, we will notify you when your order is ready for pickup or 
-          when your delivery is on the way.
-        </p>
-        <p style="font-size: 0.8rem; color: gray; margin-top:20px; margin-bottom:10px;">
-          <span><strong>PAYMENT BANK DETAILS</strong></span><br>
-          ASB Bank<br>
-          Account No: 123066023390000
-        </p>
+        <div style="font-size: 0.8rem; color: gray;">
+          <em>
+            <p>
+            Hi {{ order.customer.firstname }}, we have received your order with id #{{ order.code }}.<br>
+            Please reply to this email with your proof of payment within the next 24 hours. 
+            Once we receive your payment, we will notify you when your order is ready for pickup or 
+            when your delivery is on the way.
+            </p>
+            <p>
+            <span><strong>PAYMENT BANK DETAILS</strong></span><br>
+            ASB Bank<br>
+            Account No: 123066023390000
+            </p>
+            <p>Thanks for your continued support and always a pleasure to be at your service.</p>
+
+            <p>Cheers,<br>
+            Carlos<br>
+            Foliage Fix NZ Team</p>
+          </em>
+        </div>
       {{else}}
-        <p style="font-size: 0.8rem; color: gray;"></p>
-          Hi {{ order.customer.firstname }}, we have received your order with id #{{ order.code }}. Please expect to receive another email once we fulfill and have dispatched your order.
-          The email will contain your respective courier tracking code. Thank you very much!
-        </p>
+        <div style="font-size: 0.8rem; color: gray;">
+          <em>
+          <p>Hi {{ order.customer.firstname }}, we have received your order with id #{{ order.code }}.<br>
+          Please expect to receive another email once we fulfill and have dispatched your order.
+          The email will contain your respective courier tracking code.
+          </p>
+          <p>Thanks for your continued support and always a pleasure to be at your service.</p>
+          
+          <p>Cheers,<br>
+          Carlos<br>
+          Foliage Fix NZ Team</p>
+          </em>
+        </div>
       {{/if}}
     </div>
 
