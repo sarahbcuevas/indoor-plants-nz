@@ -34,6 +34,18 @@ productRouter.route('/')
         });
     });
 
+productRouter.route('/delete')
+
+    /* DELETE mutliple orders by id */
+    .put(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function(req, res, next) {
+        Products.deleteMany(
+            { _id: { $in: req.body } }
+          ).exec(function(err, resp) {
+            if (err) return next(err);
+            return res.json(resp);
+          });
+    });
+
 productRouter.route('/:productId')
 
     .get(function(req, res, next) {
